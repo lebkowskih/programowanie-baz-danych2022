@@ -5,6 +5,7 @@
 package javaapplication1;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import static java.lang.System.err;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,6 +32,27 @@ public class Menu extends javax.swing.JFrame {
         table_update();
         table_plan();
     }
+public class DBcon
+{
+  static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+  static final String DB_URL = "jdbc:sqlserver://pab-server.database.windows.net:1433;database=PAB2022";
+  static final String DB_USER = "PAB2022";
+  static final String DB_PASSWORD = "zaq1@WSX";
+  Connection connection;
+   public DBcon(){
+    connect();
+  
+}
+   public void connect(){
+    try{
+      Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+      connection = DriverManager.getConnection("pab-server.database.windows.net", "Pab2022", "zaq1@WSX");
+    }catch(SQLException|ClassNotFoundException e){
+      System.out.println("ERROR connecting to database!");
+      System.out.println(e.toString());
+    }
+  }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,6 +70,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        text3 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -68,21 +91,48 @@ public class Menu extends javax.swing.JFrame {
             new String [] {
                 "Przedmiot", "ECTS", "Typ"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(text3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(154, 154, 154)
+                .addComponent(text3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Plan", jPanel1);
@@ -123,9 +173,16 @@ public class Menu extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -244,16 +301,15 @@ public class Menu extends javax.swing.JFrame {
                         
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:                                   
-        // TODO add your handling code here:
         DefaultTableModel Df = (DefaultTableModel)jTable1.getModel();
         int selectedIndex = jTable1.getSelectedRow();
         
@@ -293,9 +349,9 @@ public class Menu extends javax.swing.JFrame {
                         
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
                                            
 
@@ -334,17 +390,14 @@ public class Menu extends javax.swing.JFrame {
             text1.setText("");
             text2.setText("");
             text1.requestFocus();
-            
-            
+        
                }
-            
-           
-                        
+      
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
           
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -360,6 +413,51 @@ public class Menu extends javax.swing.JFrame {
         
                          
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        int a;
+        try {
+            // załadowanie sterownika
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            // utworzenie połączenia
+            Connection polaczenie= DriverManager.getConnection
+                            ("jdbc:sqlserver://pab-server.database.windows.net:1433;database=PAB2022;user=pab2022@pab-server;password=zaq1@WSX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+            System.out.println("Działa");
+                      
+            insert = polaczenie.prepareStatement(" select imie,nazwisko from prowadzacy,prowadzacyprzedmiot where prowadzacy.id=prowadzacyprzedmiot.id_przedmiotu");
+            ResultSet rs = insert.executeQuery();
+            java.sql.ResultSetMetaData Rss = rs.getMetaData();
+            //a = Rss.getColumnCount();
+            DefaultTableModel Df = (DefaultTableModel)jTable2.getModel();
+            Df.setRowCount(0);
+            int b=1;
+            
+            while (rs.next())
+            {
+            Vector v2 = new Vector();
+            for(int i=1;i==b;i++)
+            {
+            //v2.add(rs.getString("imie"));
+            JOptionPane.showMessageDialog(this,"Prowadzacy " + (rs.getString("imie")) + " " + (rs.getString("nazwisko")));
+            table_plan();
+            }
+            //Df.addRow(v2);
+            }
+            //DefaultTableModel Df = (DefaultTableModel)jTable2.getModel();
+            //int selectedIndex = jTable2.getSelectedRow();
+            //text3.setText(Df.getValueAt(selectedIndex,1).toString());
+            //int c;
+            //Df.getValueAt(selectedIndex,1).toString();
+            //JOptionPane.showMessageDialog(this,"Prowadzacy " + Df.getValueAt(selectedIndex,3).toString());
+                        
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jTable2MouseClicked
 private void table_update()
 {
 
@@ -394,9 +492,9 @@ private void table_update()
                         
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 }
@@ -404,15 +502,15 @@ private void table_update()
 {
 
     int a;
-  try {
+    try {
             // załadowanie sterownika
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             // utworzenie połączenia
             Connection polaczenie= DriverManager.getConnection
                             ("jdbc:sqlserver://pab-server.database.windows.net:1433;database=PAB2022;user=pab2022@pab-server;password=zaq1@WSX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
             System.out.println("Działa");
-                      
             insert = polaczenie.prepareStatement("select * from przedmiot");
+     
             ResultSet rs = insert.executeQuery();
             java.sql.ResultSetMetaData Rss = rs.getMetaData();
             a = Rss.getColumnCount();
@@ -427,16 +525,15 @@ private void table_update()
             v2.add(rs.getString("nazwa_przedmiotu"));
             v2.add(rs.getString("punkty_ects"));
             v2.add(rs.getString("typ_przedmiotu"));
-            
+            v2.add(rs.getString("id"));
             }
             Df.addRow(v2);
             }
-                        
-            
+    
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Uczelnia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 }
@@ -491,5 +588,6 @@ private void table_update()
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField text1;
     private javax.swing.JTextField text2;
+    private javax.swing.JTextField text3;
     // End of variables declaration//GEN-END:variables
 }
