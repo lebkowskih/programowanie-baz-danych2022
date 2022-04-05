@@ -61,8 +61,6 @@ public class Wyswietl {
             while(rezultatodpowiedzi.next()){
                 listaodpowiedzi.add(new Odpowiedz(rezultatodpowiedzi.getString("odpowiedz")));
             }           
-            
-            
             p.close();
             
              
@@ -76,4 +74,10 @@ public class Wyswietl {
         return null;
     
     }
+    
+    public Boolean sprawdzodpowiedz() {
+        return null;
+    }
+    
 }
+

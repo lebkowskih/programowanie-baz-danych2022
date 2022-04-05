@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import pab2022.backend.Odpowiedz;
 import pab2022.backend.Pytanie;
 import pab2022.backend.Wyswietl;
@@ -25,19 +26,24 @@ public class PAB2022Interface extends javax.swing.JFrame {
         Wyswietl s = new Wyswietl();
         pytania = s.wyswielpytania();
         odpowiedzi = s.wyswietlodpowiedzi();
-        wyswietl(0);
-       
         
+        wyswietl(0);
     }
     
     public final void wyswietl(int i){
         Pytanie p = pytania.get(i);
-        
-        for(int z=0;z<4;z++){
-            Odpowiedz o = odpowiedzi.get(z);
-            System.out.println(o.getOdpowiedz());
-        }
+        Odpowiedz o1 = odpowiedzi.get(0);
+        btn1.setText(o1.getOdpowiedz());
+        Odpowiedz o2 = odpowiedzi.get(1);
+        btn2.setText(o2.getOdpowiedz());
+        Odpowiedz o3 = odpowiedzi.get(2);
+        btn3.setText(o3.getOdpowiedz());
+        Odpowiedz o4 = odpowiedzi.get(3);
+        btn4.setText(o4.getOdpowiedz());
         PytanieArea.setText(p.getPytanie());
+        
+                
+        
         
         
     }
@@ -55,10 +61,10 @@ public class PAB2022Interface extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         PytanieArea = new javax.swing.JTextArea();
-        odpowiedz_pierwsza = new javax.swing.JButton();
-        odpowiedz_druga = new javax.swing.JButton();
-        odpowiedz_trzecia = new javax.swing.JButton();
-        odpowiedz_czwarta = new javax.swing.JButton();
+        btn1 = new javax.swing.JButton();
+        btn2 = new javax.swing.JButton();
+        btn3 = new javax.swing.JButton();
+        btn4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,13 +72,13 @@ public class PAB2022Interface extends javax.swing.JFrame {
         PytanieArea.setRows(5);
         jScrollPane1.setViewportView(PytanieArea);
 
-        odpowiedz_pierwsza.setText("jButton1");
+        btn1.setText("jButton1");
 
-        odpowiedz_druga.setText("jButton2");
+        btn2.setText("jButton2");
 
-        odpowiedz_trzecia.setText("jButton3");
+        btn3.setText("jButton3");
 
-        odpowiedz_czwarta.setText("jButton4");
+        btn4.setText("jButton4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,33 +88,34 @@ public class PAB2022Interface extends javax.swing.JFrame {
                 .addGap(74, 74, 74)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(odpowiedz_druga)
-                                .addGap(89, 89, 89)
-                                .addComponent(odpowiedz_czwarta))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(61, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(odpowiedz_pierwsza)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(odpowiedz_trzecia)
-                        .addGap(87, 87, 87))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn2)))
+                        .addGap(80, 80, 80))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(odpowiedz_pierwsza)
-                    .addComponent(odpowiedz_trzecia))
-                .addGap(50, 50, 50)
+                    .addComponent(btn1)
+                    .addComponent(btn2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(odpowiedz_druga)
-                    .addComponent(odpowiedz_czwarta))
-                .addContainerGap(60, Short.MAX_VALUE))
+                    .addComponent(btn3)
+                    .addComponent(btn4))
+                .addGap(52, 52, 52))
         );
 
         pack();
@@ -155,11 +162,11 @@ public class PAB2022Interface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea PytanieArea;
+    private javax.swing.JButton btn1;
+    private javax.swing.JButton btn2;
+    private javax.swing.JButton btn3;
+    private javax.swing.JButton btn4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton odpowiedz_czwarta;
-    private javax.swing.JButton odpowiedz_druga;
-    private javax.swing.JButton odpowiedz_pierwsza;
-    private javax.swing.JButton odpowiedz_trzecia;
     // End of variables declaration//GEN-END:variables
     private ArrayList<Pytanie> pytania;
     private int id;

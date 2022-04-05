@@ -7,6 +7,7 @@ import pab2022.backend.Polaczenie;
 import pab2022.backend.Wyswietl;
 import pab2022.frontend.PAB2022Interface;
 
+
 /**
  *
  * @author Hubert
@@ -19,6 +20,7 @@ public class Main {
         pab2022.setSize(400,400);
         pab2022.setTitle("UG - Milionerzy");
         pab2022.setVisible(true);
+        
         
         Wyswietl wyswietl = new Wyswietl();
         wyswietl.wyswietlodpowiedzi();
