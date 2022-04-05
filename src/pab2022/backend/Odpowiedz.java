@@ -9,20 +9,10 @@ package pab2022.backend;
  * @author Hubert
  */
 public class Odpowiedz {
-    private int id;
     private String odpowiedz;
     
-    public Odpowiedz(int id,String odpowiedz){
-        this.id = id;
+    public Odpowiedz(String odpowiedz){
         this.odpowiedz = odpowiedz;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getOdpowiedz() {
@@ -32,4 +22,6 @@ public class Odpowiedz {
     public void setOdpowiedz(String odpowiedz) {
         this.odpowiedz = odpowiedz;
     }
+    
 }
+

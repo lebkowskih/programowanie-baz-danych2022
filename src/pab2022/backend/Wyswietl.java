@@ -29,20 +29,12 @@ public class Wyswietl {
             PreparedStatement skladnia = p.prepareStatement("{call dbo.pokaz_pytanie(1)}");
             ResultSet rezultatpytania = skladnia.executeQuery();
             
-            PreparedStatement odpowiedzi = p.prepareStatement("{call dbo.pokaz_odpowiedzi(1)}");
-            ResultSet rezultatodpowiedzi = odpowiedzi.executeQuery();
-     
             ArrayList listapytan = new ArrayList();
-            ArrayList listaodpowiedzi = new ArrayList();
            
             while(rezultatpytania.next()) {
                 listapytan.add(new Pytanie(rezultatpytania.getInt("id"),
                     rezultatpytania.getString("pytanie")));}
-            
-            while(rezultatodpowiedzi.next()){
-                listaodpowiedzi.add(new Odpowiedz(rezultatodpowiedzi.getInt("id"),
-                    rezultatodpowiedzi.getString("odpowiedz")));
-            }           
+               
             p.close();
             
             return listapytan;
@@ -67,9 +59,10 @@ public class Wyswietl {
             ArrayList listaodpowiedzi = new ArrayList();
            
             while(rezultatodpowiedzi.next()){
-                listaodpowiedzi.add(new Odpowiedz(rezultatodpowiedzi.getInt("id"),
-                    rezultatodpowiedzi.getString("odpowiedz")));
+                listaodpowiedzi.add(new Odpowiedz(rezultatodpowiedzi.getString("odpowiedz")));
             }           
+            
+            
             p.close();
             
              

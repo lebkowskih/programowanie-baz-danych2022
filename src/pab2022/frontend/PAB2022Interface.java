@@ -26,13 +26,17 @@ public class PAB2022Interface extends javax.swing.JFrame {
         pytania = s.wyswielpytania();
         odpowiedzi = s.wyswietlodpowiedzi();
         wyswietl(0);
-        
+       
         
     }
     
     public final void wyswietl(int i){
         Pytanie p = pytania.get(i);
-        Odpowiedz o = odpowiedzi.get(i);
+        
+        for(int z=0;z<4;z++){
+            Odpowiedz o = odpowiedzi.get(z);
+            System.out.println(o.getOdpowiedz());
+        }
         PytanieArea.setText(p.getPytanie());
         
         
