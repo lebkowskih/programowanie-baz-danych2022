@@ -9,6 +9,7 @@ package pab2022.backend;
  * @author Hubert
  */
 public class Odpowiedz {
+    private int id;
     private String odpowiedz;
     
     public Odpowiedz(String odpowiedz){

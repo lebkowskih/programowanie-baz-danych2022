@@ -39,14 +39,10 @@ public class PAB2022Interface extends javax.swing.JFrame {
         Odpowiedz o3 = odpowiedzi.get(2);
         btn3.setText(o3.getOdpowiedz());
         Odpowiedz o4 = odpowiedzi.get(3);
-        btn4.setText(o4.getOdpowiedz());
+        btn4.setText(o4.getOdpowiedz()); 
         PytanieArea.setText(p.getPytanie());
-        
-                
-        
-        
-        
     }
+    
     
     
 

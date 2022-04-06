@@ -20,6 +20,7 @@ import pab2022.backend.Pytanie;
  * @author Hubert
  */
 public class Wyswietl {
+    String odpowiedz = null;
     public ArrayList wyswielpytania() throws ClassNotFoundException{
     try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -59,7 +60,8 @@ public class Wyswietl {
             ArrayList listaodpowiedzi = new ArrayList();
            
             while(rezultatodpowiedzi.next()){
-                listaodpowiedzi.add(new Odpowiedz(rezultatodpowiedzi.getString("odpowiedz")));
+                listaodpowiedzi.add(new Odpowiedz(
+                        rezultatodpowiedzi.getString("odpowiedz")));
             }           
             p.close();
             
@@ -75,8 +77,27 @@ public class Wyswietl {
     
     }
     
-    public Boolean sprawdzodpowiedz() {
-        return null;
+    public Boolean sprawdzodpowiedz() throws ClassNotFoundException {
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                 Connection p =
+                         DriverManager.getConnection("jdbc:sqlserver://pab-server.database.windows.net:1433;database=PAB2022;user=pab2022;password=zaq1@WSX");
+                 
+            PreparedStatement sprawodp = p.prepareStatement("{call dbo.pokaz_prawodp(1)}");
+            ResultSet rezultatsprawdodp = sprawodp.executeQuery();
+            
+            while(rezultatsprawdodp.next()){
+                odpowiedz = rezultatsprawdodp.getString("IDPrawOdp");
+                }
+            
+            }
+            
+        catch (SQLException ex) {
+                 Logger.getLogger(Polaczenie.class.getName()).log(Level.SEVERE, null, ex);
+             }
+       
+       return null;
     }
     
 }
