@@ -23,7 +23,8 @@ public class Main {
         
         
         Wyswietl wyswietl = new Wyswietl();
-        wyswietl.sprawdzodpowiedz();
+        wyswietl.wyswielPytania();
+        wyswietl.dodajOdpowiedzi();
         
         
         

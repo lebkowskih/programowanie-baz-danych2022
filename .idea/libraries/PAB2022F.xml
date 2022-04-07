@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="PAB2022F">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/PAB2022F.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -4,11 +4,13 @@
  */
 package pab2022.frontend;
 
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import pab2022.backend.Odpowiedz;
 import pab2022.backend.Pytanie;
 import pab2022.backend.Wyswietl;
@@ -17,35 +19,60 @@ import pab2022.backend.Wyswietl;
  * @author Hubert
  */
 public class PAB2022Interface extends javax.swing.JFrame {
-
     /**
      * Creates new form PAB2022Interface
      */
+    public String odpowiedzUz;
+    public int i;
+    
     public PAB2022Interface() throws ClassNotFoundException {
         initComponents();
         Wyswietl s = new Wyswietl();
-        pytania = s.wyswielpytania();
-        odpowiedzi = s.wyswietlodpowiedzi();
-        
+        pytania = s.wyswielPytania();
+        odpowiedzi = s.dodajOdpowiedzi();
         wyswietl(0);
+        odpowiedzi = s.dodajOdpowiedzi();
+        
+        btn1.addActionListener((java.awt.event.ActionEvent evt) -> {
+            try {
+                btn1ActionPerformed(evt);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(PAB2022Interface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
     }
     
-    public final void wyswietl(int i){
+    public void wyswietl(int i){
         Pytanie p = pytania.get(i);
-        Odpowiedz o1 = odpowiedzi.get(0);
-        btn1.setText(o1.getOdpowiedz());
-        Odpowiedz o2 = odpowiedzi.get(1);
-        btn2.setText(o2.getOdpowiedz());
-        Odpowiedz o3 = odpowiedzi.get(2);
-        btn3.setText(o3.getOdpowiedz());
-        Odpowiedz o4 = odpowiedzi.get(3);
-        btn4.setText(o4.getOdpowiedz()); 
-        PytanieArea.setText(p.getPytanie());
+        Odpowiedz o = odpowiedzi.get(i);
+        PytanieArea.setText(o.getOdpowiedz());
+        
+        
     }
     
     
-    
+  
 
+    public void btn1ActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException {     
+        /*
+        Wyswietl s = new Wyswietl();
+
+        odpowiedzUz = odpText.getText();
+        
+        if(sprawdzOdp()==true){
+            s.idPytania++;
+            wyswietl();
+        }
+           
+        else{
+            JOptionPane.showMessageDialog(this,"Podano złą odpowiedź");
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
+        */
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,10 +84,9 @@ public class PAB2022Interface extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         PytanieArea = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        odpText = new javax.swing.JTextArea();
         btn1 = new javax.swing.JButton();
-        btn2 = new javax.swing.JButton();
-        btn3 = new javax.swing.JButton();
-        btn4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,13 +94,11 @@ public class PAB2022Interface extends javax.swing.JFrame {
         PytanieArea.setRows(5);
         jScrollPane1.setViewportView(PytanieArea);
 
-        btn1.setText("jButton1");
+        odpText.setColumns(20);
+        odpText.setRows(5);
+        jScrollPane2.setViewportView(odpText);
 
-        btn2.setText("jButton2");
-
-        btn3.setText("jButton3");
-
-        btn4.setText("jButton4");
+        btn1.setText("Sprawdź odpowiedź");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,41 +106,35 @@ public class PAB2022Interface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(74, 74, 74)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(61, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn2)))
-                        .addGap(80, 80, 80))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn1)
+                        .addGap(129, 129, 129))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn1)
-                    .addComponent(btn2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn3)
-                    .addComponent(btn4))
-                .addGap(52, 52, 52))
+                .addGap(46, 46, 46)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn1)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
+    
+   
     /**
      * @param args the command line arguments
      */
@@ -149,6 +167,7 @@ public class PAB2022Interface extends javax.swing.JFrame {
             public void run() {
                 try {
                     new PAB2022Interface().setVisible(true);
+                    
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(PAB2022Interface.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -159,13 +178,11 @@ public class PAB2022Interface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea PytanieArea;
     private javax.swing.JButton btn1;
-    private javax.swing.JButton btn2;
-    private javax.swing.JButton btn3;
-    private javax.swing.JButton btn4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea odpText;
     // End of variables declaration//GEN-END:variables
     private ArrayList<Pytanie> pytania;
-    private int id;
     private ArrayList<Odpowiedz> odpowiedzi;
 
 }

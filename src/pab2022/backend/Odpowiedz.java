@@ -11,9 +11,18 @@ package pab2022.backend;
 public class Odpowiedz {
     private int id;
     private String odpowiedz;
-    
-    public Odpowiedz(String odpowiedz){
+
+    public Odpowiedz(int id, String odpowiedz) {
+        this.id = id;
         this.odpowiedz = odpowiedz;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getOdpowiedz() {
@@ -24,5 +33,5 @@ public class Odpowiedz {
         this.odpowiedz = odpowiedz;
     }
     
+    
 }
-

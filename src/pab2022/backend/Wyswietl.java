@@ -14,20 +14,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 import pab2022.backend.Pytanie;
+import pab2022.frontend.PAB2022Interface;
 
 /**
  *
  * @author Hubert
  */
 public class Wyswietl {
-    String odpowiedz = null;
-    public ArrayList wyswielpytania() throws ClassNotFoundException{
+    public String odpowiedz;
+    public int idPytania = 1;
+
+    public  ArrayList wyswielPytania() throws ClassNotFoundException{
     try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection p =
                     DriverManager.getConnection("jdbc:sqlserver://pab-server.database.windows.net:1433;database=PAB2022;user=pab2022;password=zaq1@WSX");
             
-            PreparedStatement skladnia = p.prepareStatement("{call dbo.pokaz_pytanie(1)}");
+            PreparedStatement skladnia = p.prepareStatement("{call dbo.pokaz_pytanie}");
             ResultSet rezultatpytania = skladnia.executeQuery();
             
             ArrayList listapytan = new ArrayList();
@@ -48,57 +51,35 @@ public class Wyswietl {
     return null;
     }
     
-    public ArrayList wyswietlodpowiedzi() throws ClassNotFoundException{
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection p =
-                    DriverManager.getConnection("jdbc:sqlserver://pab-server.database.windows.net:1433;database=PAB2022;user=pab2022;password=zaq1@WSX");
-
-            PreparedStatement odpowiedzi = p.prepareStatement("{call dbo.pokaz_odpowiedzi(1)}");
-            ResultSet rezultatodpowiedzi = odpowiedzi.executeQuery();
-     
-            ArrayList listaodpowiedzi = new ArrayList();
-           
-            while(rezultatodpowiedzi.next()){
-                listaodpowiedzi.add(new Odpowiedz(
-                        rezultatodpowiedzi.getString("odpowiedz")));
-            }           
-            p.close();
-            
-             
-            return listaodpowiedzi;
-            }
-            
-        
-        catch (SQLException ex) {
-            Logger.getLogger(Polaczenie.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     
-    }
-    
-    public Boolean sprawdzodpowiedz() throws ClassNotFoundException {
-        
+    public ArrayList dodajOdpowiedzi() throws ClassNotFoundException {  
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                  Connection p =
                          DriverManager.getConnection("jdbc:sqlserver://pab-server.database.windows.net:1433;database=PAB2022;user=pab2022;password=zaq1@WSX");
                  
-            PreparedStatement sprawodp = p.prepareStatement("{call dbo.pokaz_prawodp(1)}");
+            PreparedStatement sprawodp = p.prepareStatement("{call dbo.pokaz_prawodp}");
             ResultSet rezultatsprawdodp = sprawodp.executeQuery();
             
+            ArrayList listaodpowiedzi = new ArrayList();
+            
             while(rezultatsprawdodp.next()){
-                odpowiedz = rezultatsprawdodp.getString("IDPrawOdp");
-                }
+                listaodpowiedzi.add(new Odpowiedz(rezultatsprawdodp.getInt("id")
+                        ,rezultatsprawdodp.getString("odpowiedz")));}
+                
+            p.close();
             
-            }
             
+            return listaodpowiedzi;
+            
+        }
         catch (SQLException ex) {
                  Logger.getLogger(Polaczenie.class.getName()).log(Level.SEVERE, null, ex);
              }
-       
-       return null;
+    
+    return null;
     }
     
-}
+    
+   }
 
