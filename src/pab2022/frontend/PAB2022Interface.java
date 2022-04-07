@@ -31,7 +31,7 @@ public class PAB2022Interface extends javax.swing.JFrame {
         pytania = s.wyswielPytania();
         odpowiedzi = s.dodajOdpowiedzi();
         wyswietl(0);
-        odpowiedzi = s.dodajOdpowiedzi();
+        
         
         btn1.addActionListener((java.awt.event.ActionEvent evt) -> {
             try {
@@ -46,30 +46,34 @@ public class PAB2022Interface extends javax.swing.JFrame {
     public void wyswietl(int i){
         Pytanie p = pytania.get(i);
         Odpowiedz o = odpowiedzi.get(i);
-        PytanieArea.setText(o.getOdpowiedz());
-        
-        
+        PytanieArea.setText(p.getPytanie());
     }
     
     
   
 
     public void btn1ActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException {     
-        /*
+        
         Wyswietl s = new Wyswietl();
+        Odpowiedz o = odpowiedzi.get(i);
 
         odpowiedzUz = odpText.getText();
-        
-        if(sprawdzOdp()==true){
-            s.idPytania++;
-            wyswietl();
+        if(odpowiedzUz.equals(o.getOdpowiedz())){
+            try{
+            System.out.println("DZIAŁA");
+            wyswietl(++i);
+            JOptionPane.showMessageDialog(this,"Dobra odpowiedź");
+            System.out.println(o.getOdpowiedz());
+            }
+            catch(java.lang.IndexOutOfBoundsException ex) {
+                JOptionPane.showMessageDialog(this,"Wygrałeś!");
+            }
         }
-           
         else{
-            JOptionPane.showMessageDialog(this,"Podano złą odpowiedź");
-            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            JOptionPane.showMessageDialog(this, "Zła odpowiedź");
+             System.out.println(o.getOdpowiedz());
+
         }
-        */
     }
     
     
