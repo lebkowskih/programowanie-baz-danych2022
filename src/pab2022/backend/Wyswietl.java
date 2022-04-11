@@ -68,8 +68,6 @@ public class Wyswietl {
                         ,rezultatsprawdodp.getString("odpowiedz")));}
                 
             p.close();
-            
-            
             return listaodpowiedzi;
             
         }

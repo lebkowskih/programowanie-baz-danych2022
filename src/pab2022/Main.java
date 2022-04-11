@@ -18,16 +18,14 @@ public class Main {
         
         PAB2022Interface pab2022=new PAB2022Interface();
         pab2022.setSize(400,400);
-        pab2022.setTitle("UG - Milionerzy");
+        pab2022.setTitle("UG - Quiz");
         pab2022.setVisible(true);
         
         
         Wyswietl wyswietl = new Wyswietl();
         wyswietl.wyswielPytania();
         wyswietl.dodajOdpowiedzi();
-        
-        
-        
+              
     }
     
    
